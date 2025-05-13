@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mental Health Support App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>🧠 Mental Health Support</h1>
+
+      <section class="card">
+        <h2>How are you feeling today?</h2>
+        <select id="mood-select">
+          <option>😊 Happy</option>
+          <option>😞 Sad</option>
+          <option>😐 Okay</option>
+          <option>😫 Anxious</option>
+          <option>😡 Angry</option>
+          <option>😴 Tired</option>
+        </select>
+        <p>Your mood: <span id="current-mood">Not selected</span></p>
+      </section>
+
+      <section class="card">
+        <h2>Write Your Thoughts</h2>
+        <textarea id="journal" rows="5" placeholder="Write here..."></textarea>
+        <button onclick="saveJournal()">Save Entry</button>
+        <p id="save-status"></p>
+      </section>
+
+      <section class="card">
+        <h2>Self-Care Tip</h2>
+        <p id="tip-text">Click the button to get a tip.</p>
+        <button onclick="showTip()">Show Tip</button>
+      </section>
+
+      <section class="card">
+        <h2>Motivational Quote</h2>
+        <p id="quote-text">"Your quote will appear here."</p>
+        <button onclick="showQuote()">New Quote</button>
+      </section>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
