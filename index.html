@@ -4,43 +4,154 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mental Health Support App</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="style.css" />
+    <!-- Add Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Add GSAP library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   </head>
   <body>
-    <div class="container">
-      <h1>🧠 Mental Health Support</h1>
+    <div class="app-wrapper">
+      <header class="header">
+        <h1 class="main-title">🧠 <span>Mental Health Support</span></h1>
+        <p class="tagline">Your daily companion for mental well-being</p>
+      </header>
+      
+      <div class="container">
+        <nav class="app-nav">
+          <button class="nav-btn active" data-section="mood">Mood</button>
+          <button class="nav-btn" data-section="journal">Journal</button>
+          <button class="nav-btn" data-section="selfcare">Self-Care</button>
+          <button class="nav-btn" data-section="quotes">Quotes</button>
+          <button class="nav-btn" data-section="resources">Resources</button>
+        </nav>
 
-      <section class="card">
-        <h2>How are you feeling today?</h2>
-        <select id="mood-select">
-          <option>😊 Happy</option>
-          <option>😞 Sad</option>
-          <option>😐 Okay</option>
-          <option>😫 Anxious</option>
-          <option>😡 Angry</option>
-          <option>😴 Tired</option>
-        </select>
-        <p>Your mood: <span id="current-mood">Not selected</span></p>
-      </section>
+        <div class="content-wrapper">
+          <section id="mood-section" class="card content-section active">
+            <div class="card-header">
+              <h2>How are you feeling today?</h2>
+              <div class="mood-icon">😊</div>
+            </div>
+            <div class="card-body">
+              <select id="mood-select">
+                <option value="😊 Happy">😊 Happy</option>
+                <option value="😞 Sad">😞 Sad</option>
+                <option value="😐 Okay">😐 Okay</option>
+                <option value="😫 Anxious">😫 Anxious</option>
+                <option value="😡 Angry">😡 Angry</option>
+                <option value="😴 Tired">😴 Tired</option>
+              </select>
+              <div class="mood-display">
+                <p>Your mood: <span id="current-mood">Not selected</span></p>
+              </div>
+              <div class="mood-history">
+                <h3>Mood History</h3>
+                <div id="mood-chart" class="chart-container">
+                  <!-- Mood history will be displayed here -->
+                  <p>Your mood tracking will appear here over time</p>
+                </div>
+              </div>
+            </div>
+          </section>
 
-      <section class="card">
-        <h2>Write Your Thoughts</h2>
-        <textarea id="journal" rows="5" placeholder="Write here..."></textarea>
-        <button onclick="saveJournal()">Save Entry</button>
-        <p id="save-status"></p>
-      </section>
+          <section id="journal-section" class="card content-section">
+            <div class="card-header">
+              <h2>Write Your Thoughts</h2>
+              <div class="journal-icon">📝</div>
+            </div>
+            <div class="card-body">
+              <div class="date-display" id="journal-date"></div>
+              <textarea id="journal" rows="5" placeholder="How are you feeling? What's on your mind today?"></textarea>
+              <div class="journal-actions">
+                <button id="save-journal-btn" onclick="saveJournal()">Save Entry</button>
+                <button id="view-journals-btn">View Past Entries</button>
+              </div>
+              <p id="save-status" class="status-message"></p>
+              <div id="journal-history" class="journal-history">
+                <!-- Past entries will be shown here -->
+              </div>
+            </div>
+          </section>
 
-      <section class="card">
-        <h2>Self-Care Tip</h2>
-        <p id="tip-text">Click the button to get a tip.</p>
-        <button onclick="showTip()">Show Tip</button>
-      </section>
+          <section id="selfcare-section" class="card content-section">
+            <div class="card-header">
+              <h2>Self-Care Tips</h2>
+              <div class="selfcare-icon">🌱</div>
+            </div>
+            <div class="card-body">
+              <div class="tip-container">
+                <p id="tip-text">Click the button to get a self-care tip.</p>
+              </div>
+              <button onclick="showTip()" class="animated-btn">Show Tip</button>
+              <div class="selfcare-categories">
+                <h3>Explore by category</h3>
+                <div class="category-buttons">
+                  <button onclick="showCategoryTips('physical')">Physical</button>
+                  <button onclick="showCategoryTips('emotional')">Emotional</button>
+                  <button onclick="showCategoryTips('mental')">Mental</button>
+                  <button onclick="showCategoryTips('social')">Social</button>
+                </div>
+              </div>
+            </div>
+          </section>
 
-      <section class="card">
-        <h2>Motivational Quote</h2>
-        <p id="quote-text">"Your quote will appear here."</p>
-        <button onclick="showQuote()">New Quote</button>
-      </section>
+          <section id="quotes-section" class="card content-section">
+            <div class="card-header">
+              <h2>Motivational Quotes</h2>
+              <div class="quotes-icon">💭</div>
+            </div>
+            <div class="card-body">
+              <div class="quote-container">
+                <p id="quote-text">"Your quote will appear here."</p>
+                <p id="quote-author" class="quote-author"></p>
+              </div>
+              <button onclick="showQuote()" class="animated-btn">New Quote</button>
+              <div class="quote-actions">
+                <button onclick="shareQuote()" class="share-btn">Share Quote</button>
+                <button onclick="saveQuote()" class="save-btn">Save Quote</button>
+              </div>
+            </div>
+          </section>
+
+          <section id="resources-section" class="card content-section">
+            <div class="card-header">
+              <h2>Mental Health Resources</h2>
+              <div class="resources-icon">📚</div>
+            </div>
+            <div class="card-body">
+              <div class="resources-list">
+                <div class="resource-item">
+                  <h3>Crisis Hotlines</h3>
+                  <ul>
+                    <li><a href="https://988lifeline.org/" target="_blank">988 Suicide & Crisis Lifeline</a></li>
+                    <li><a href="https://www.crisistextline.org/" target="_blank">Crisis Text Line</a></li>
+                  </ul>
+                </div>
+                <div class="resource-item">
+                  <h3>Apps & Tools</h3>
+                  <ul>
+                    <li><a href="https://www.calm.com/" target="_blank">Calm</a></li>
+                    <li><a href="https://www.headspace.com/" target="_blank">Headspace</a></li>
+                  </ul>
+                </div>
+                <div class="resource-item">
+                  <h3>Educational Content</h3>
+                  <ul>
+                    <li><a href="https://www.nami.org/" target="_blank">National Alliance on Mental Illness</a></li>
+                    <li><a href="https://www.mind.org.uk/" target="_blank">Mind</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      
+      <footer class="app-footer">
+        <p>&copy; 2023 Mental Health Support App | <a href="https://github.com/AparajithKrishna/Mental-health-support" target="_blank">GitHub</a></p>
+      </footer>
     </div>
 
     <script src="script.js"></script>
